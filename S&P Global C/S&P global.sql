@@ -4,7 +4,7 @@ Id name marks
 1   a
 2   b
 3   c
-\*/
+*/
 
 with rank_student as(
 select name,
@@ -16,7 +16,7 @@ select name
 from rank_student
 where stu_rank = 2;
 
-
+/*
 course
 id name
 1   x
@@ -32,7 +32,7 @@ stu_id course_id  marks
 
 all the student names, total number of course they have taken.
 some of the student may not have taken course return their name.
-
+*/
 select
       s.name student_name,
       count(scm.course_id) course_count
@@ -56,19 +56,3 @@ select c.name,
 from course as c
 inner join student_course_mapping scm on c.id = scm.course_id
 group by c.name
-
-
-
-
-
-
-student_course_mapping
-stu_id course_id marks
-1
-
-
-
-resume: good resume
-
-improve more on skills: pyspark and python
-beginner level.

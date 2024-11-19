@@ -9,11 +9,4 @@ select m.name, count(e.empid)
 from emp as e , emp as m
 where e.managerid=m.empid
 group by m.name
-------------------
 
-df
-df_m = df
-
-#df_m = df.groupBy('managerid').count()
-
-df.join(df_m,df_m.managerid = df.empid).show()

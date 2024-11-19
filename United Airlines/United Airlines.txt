@@ -22,14 +22,10 @@ ID
 3
 3
 
-right outer join: rows 2
+right outer join:
+inner join:
 
-null 3
-null 3
-
-inner join: 4*2 + 3*4 = 20
-
-union: 4 rows
+union: 
 
 
 Mobile_NO       CALL_TIME

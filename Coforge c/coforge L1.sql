@@ -1,19 +1,12 @@
-A    B
-1     2
-1     1
-2     3
-N    1
-N    N
+-- Two tables were given find the number of output based on type on joins.
 
-No of rows in output in inner join: (2*2)+(1*1)=5
-No of rows in output in left join:  7
-No of rows in output in Right join: 7
-No of rows in output in Full join: 9
-
----
+No of rows in output in inner join: 
+No of rows in output in left join: 
+No of rows in output in Right join: 
+No of rows in output in Full join: 
 
 
-
+/*
 | Id | Name  | Salary | ManagerId |
 +----+-------+--------+-----------+
 | 1  | Joe   | 70000  | 3         |
@@ -24,8 +17,5 @@ No of rows in output in Full join: 9
 .
 	Q) Given the Employee table below, write a SQL query that
   finds employees who earn more than their managers
+*/
 
-
-
-table
-5th

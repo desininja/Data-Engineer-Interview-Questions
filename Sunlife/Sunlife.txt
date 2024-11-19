@@ -8,21 +8,17 @@ output:
 
 from pyspark.sql import functions as F
 
-# Align the columns in dataframe2 to match dataframe1
 dataframe2 = dataframe2.select("a", "b", "c", "d")
 
-# Add the missing column 'd' to dataframe1 with null values
 dataframe1 = dataframe1.withColumn("d", F.lit(None))
 
-# Perform the union
 union_df = dataframe1.unionByName(dataframe2)
 
-# Show the result
 union_df.show()
 
 data
 
-accumulators
+What are accumulators in pyspark?
 
 
 --
