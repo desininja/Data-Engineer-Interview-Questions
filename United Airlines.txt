@@ -1,0 +1,51 @@
+Table : 1
+ID
+
+1
+1
+1
+1
+2
+2
+2
+NULL
+
+Table :2
+
+ID
+1
+1
+2
+2
+2
+2
+3
+3
+
+right outer join: rows 2
+
+null 3
+null 3
+
+inner join: 4*2 + 3*4 = 20
+
+union: 4 rows
+
+
+Mobile_NO       CALL_TIME
+999	            10:00
+999             11:00
+999             12:00
+888             9:00
+888             8:00
+888             10:00
+
+-- second last record for each mobile number
+
+select Mobile_NO, CALL_TIME
+from (
+select Mobile_NO, CALL_TIME,
+      dense_rank() over(partition by Mobile_NO order by CALL_TIME DESC) as d_rank
+      from record
+) as temp
+where d_rank = 2

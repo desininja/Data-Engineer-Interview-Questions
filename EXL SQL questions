@@ -1,0 +1,54 @@
+1,,,2,,,3,,,,ab,,4,,5
+1,2,3,ab,4,5
+
+
+
+table T1
+c1
+1
+1
+1
+2
+2
+3
+Null
+
+table T2
+c2
+1
+1
+2
+2
+4
+Null
+Null
+
+-- number
+inner join =  3*2+2*2 = 10
+left join  =  10+1 = 11
+right join =  11
+outer join =  12
+
+
+
+
+t1
+a,b,c
+123,hh,tt
+123,hh,tt
+123,hh,mm
+
+
+-- query to fetch  duplicate records
+
+
+select a,b,c, sum(counter_) over(partition by a,b,c) as duplicate_count
+from(
+select a,
+        b,
+        c,
+        1 as counter_
+from t1
+) as temp
+where duplicate_count >1;
+------------------------------------------------

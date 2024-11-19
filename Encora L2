@@ -1,0 +1,76 @@
+df_emp = emp_id, dept_id, emp_name, salary
+
+df_dept = dept_id, dept_name, hod
+
+#write 2nd highest salary of each dept, dept_id, dept_name,emp_name, salary
+
+
+
+from pyspark.sql import Functions as F
+from pyspark.sql import Window
+
+
+window = Window.partitionBy(F.col('dept_id')).orderBy(F.col('salary').desc())
+
+ranked_df_emp = df_emp.withColumn('rank',F.dense_rank(window))
+
+salary_2_high_df = ranked_df_emp.filter(F.col('rank')==2)
+
+final_df = salary_2_high_df.join(df_dept,salary_2_high_df.dept_id=df_dept.dept_id)
+
+final_df.select("dept_id","dept_name","emp_name","salary").show(truncate=False)
+
+==============
+s = 'python is easy and python is interesting'
+
+#count the freq of each word.
+
+
+str_list = s.split()
+
+word_dic ={}
+for word in str_list:
+    if word in word_dic.keys():
+        word_dic[word]+=1
+    else:
+        word_dic[word]=1
+
+print(word_dic)
+
+=========================
+
+rdd
+
+==============================
+
+
+50 GB
+
+
+default partion  128 256
+
+50*1024/128 = 400
+
+total number of partitions =400
+
+no. executors
+
+no. of cores = 4 (recommended number)
+
+no. executors=  400/4 = 100
+
+default size single core = 128*4 = 512 MB
+
+total memory of single core: 512 *4 = 2048 MB, 2GB
+
+total cores 100
+2 GB
+
+100*2 GB
+
+200 GB
+
+
+t1 >> [t2 >> t3] >> t4
+
+spark internals, configurations. Focus

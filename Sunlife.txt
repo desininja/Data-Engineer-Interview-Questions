@@ -1,0 +1,42 @@
+dataframe1
+a b c
+
+dataframe2
+b c a d
+union of the above two dataframes.
+output:
+
+from pyspark.sql import functions as F
+
+# Align the columns in dataframe2 to match dataframe1
+dataframe2 = dataframe2.select("a", "b", "c", "d")
+
+# Add the missing column 'd' to dataframe1 with null values
+dataframe1 = dataframe1.withColumn("d", F.lit(None))
+
+# Perform the union
+union_df = dataframe1.unionByName(dataframe2)
+
+# Show the result
+union_df.show()
+
+data
+
+accumulators
+
+
+--
+EmployeeID	EmployeeName	ManagerID
+1	Alice	NULL
+2	Bob	1
+3	Charlie	1
+4	David	2
+5	Eve	2
+6	Frank	3
+
+ Find no of reportees for each  manager name?
+
+ select m.EmployeeName, count(e.EmployeeID)
+ from employee e , employee m
+ where e.ManagerID = m.EmployeeID
+ group by m.EmployeeName

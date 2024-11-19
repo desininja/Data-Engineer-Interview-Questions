@@ -1,0 +1,56 @@
+table_A
+1
+null
+null
+4
+
+table_B
+1
+2
+null
+
+inner join 3    correct
+left join 4     correct
+right join 3    correct
+full join 4     correct
+cross join 12   correct
+
+
+inner join 1  correct
+left join 4   correct
+right join 3  correct
+full join 6   correct
+cross join 12 correct
+
+# fetch the 3rd highest sal
+emp_id,
+emp_name,
+emp_sal
+
+select emp_id,emp_name,emp_sal
+from (
+select *,
+dense_rank() over(order by emp_sal DESC) d_rank
+ from emp ) as temp
+ where d_rank =3;
+
+
+
+emp_id, emp_name, emp_unique
+
+select * from emp
+where emp_unique like reg_ex('!@#$');
+
+
+Create view temp_table as (
+
+  select * from emp
+)
+
+emp_id,emp_name,emp_doj(yyyy-mm-dd)
+
+doj in year 2024
+
+select emp_id
+from emp
+where year(emp_doj) = '2024'

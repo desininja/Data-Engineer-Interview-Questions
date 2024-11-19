@@ -1,0 +1,118 @@
+-- What is the difference between INNER JOIN and LEFT JOIN?
+Inner join brings out the common rows between two tables.
+left join brings out the common rows as well as all the rows from left with null values where no comman values are not present.
+
+
+-- Write a query to fetch the second highest salary from the employees table.
+========================================================
+-- !st approach
+select salary
+from employees
+order by salary DESC
+limit 2 offset 1
+
+=======================================================================
+
+-- 2nd Approach
+with salary_rank as (
+  select
+          salary,
+          dense_rank() over(order by salary DESC) as salary_rank_col
+  from employees
+)
+
+select salary
+from salary_rank
+where salary_rank_col = 2
+
+-- How do you find duplicate rows in a table?
+
+suppose we have a table "data" where id are supposed to be unique
+
+select id, count(*) as cnt
+from data
+group by id
+having count(*)>1
+order by cnt DESC;
+
+now if the count is greater than 1 we will know that duplicate exists.
+
+
+
+-- Write a query to calculate the total sales for each product in a sales table.
+
+select product, sum(sales_amount)
+from sales
+group by product;
+
+
+
+/* How do you remove duplicate rows from a table while keeping only one instance?
+suppose we have table like customers
+
+id    name       address
+123   Ash        c-909
+456   Ash        c-909
+*/
+
+with find_dup as (
+  select id,
+  row_number() over(partition by name, address order by id) as rn
+  from customers
+)
+
+delete from customers
+  where id in (select id from find_dup where rn > 1);
+
+
+
+
+
+
+delete from customers where id in (
+select id from (
+  select id,
+  row_number() over(partition by name, address order by id) as rn
+  from customers) as temp1
+  where rn >= 2)
+
+-- Write a query to get the department with the highest total salary.
+
+
+
+select department, sum(salary)
+from org
+group by department
+order by sum(salary) DESC
+limit 1
+
+
+-- Given a table transactions with columns transaction_id, customer_id, amount, and transaction_date,
+-- write a query to find the total transaction amount for each customer for the current year.
+
+select customer_id , sum(amount)
+from transactions
+--where year(transaction_date) = year(current_date)
+where extract(YEAR FROM transaction_date::Date) = Extract(YEAR FROM current_date)
+
+group by customer_id
+
+-- If you have a table orders and you want to select only the orders placed in the last 7 days, how would you write the query?
+
+select *
+from orders
+where order_date >= NOW() - Interval '7 Day'
+
+
+-- You have a sales table with sales_id, product_id, sales_amount, and sales_date. Write a query to find the average sales amount for each product for the last 3 months.
+
+
+select product_id, avg(sales)
+
+from sales
+
+where sales_date >= NOW() - INTERVAL '3 Months'
+
+group by product_id
+
+--  
